@@ -3,14 +3,24 @@
 @section('title', 'Inicio')
 
 @section('content')
-        <br>
-        <h2>Editar una Categoria</h2>
-        <br>
-        <form>
-            <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">Nombre</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <h1>Modificar</h1>
+    <h5>Formulario para actualizar Categorias</h5>
+    <hr>
+    <form action="/categorias/update/{{ $categoria->codigo }}" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="row">
+            <div class="col-6">
+                Nombre
+                <input type="text" class="form-control" name="nombre" value="{{ $categoria->nombre }}"> @error('nombre')
+                    <span class="invalid-feedback d-block" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Actualizar</button>
-          </form>    
+            <div class="col-12 mt-2">
+                <button class="btn btn-primary">Guardar</button>
+            </div>
+    </form>
+    </div>
 @endsection
