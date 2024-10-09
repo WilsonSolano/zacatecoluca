@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Models\Categoria;
 
-Route::get('/', function () {
+Route::get('/home', function () {
     return view('home', ['nombre' => 'Wilson Josué','apellido' => 'Solano Durán']);
-});/*
+})->middleware('auth');/*
 Route::get('/products/show', function (){
     return view('products/show',['producto' => 'Camisa Sport']);
 });
@@ -77,3 +77,6 @@ Route::post('/categorias/store', [CategoriaController::class, 'store']);
 Route::put('/categorias/update/{categoria}', [CategoriaController::class, 'update']); 
 // Ruta para eliminar producto
 Route::delete('/categorias/destroy/{id}', [CategoriaController::class, 'destroy']);
+Auth::routes();
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

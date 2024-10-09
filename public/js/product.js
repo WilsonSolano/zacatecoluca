@@ -4,7 +4,7 @@ destroy = function (e) {
     Swal.fire({
         icon: "question",
         title: "Desea continuar?",
-        text: "El producto será eliminado",
+        text: "El item será eliminado",
         showCancelButton: true,
         cancelButtonText: "Cancelar",
         confirmButtonText: "Si",
@@ -16,7 +16,7 @@ destroy = function (e) {
             request.onload = () => {
                 if (request.status == 200) {
                     e.closest("tr").remove();
-                    Swal.fire({ icon: "success", text: "Producto eliminado" });
+                    Swal.fire({ icon: "success", text: "Item eliminado" });
                 }
             };
             request.onerror = (err) => rejects(err);
