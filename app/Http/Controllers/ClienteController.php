@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Categoria;
 use App\Models\Cliente;
+use App\Services\NotificationService;
+use App\Services\NotificationServices;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
-    public function __construct(){
+    protected $notificationService;
+
+    public function __construct(NotificationService $notificationService){
         $this->middleware("auth");
+        $this->notificationService = $notificationService;
     }
     /**
      * Display a listing of the resource.
@@ -50,7 +55,8 @@ class ClienteController extends Controller
 
         Cliente::create($data);
 
-        return redirect('/clientes/show');
+        //return redirect('/clientes/show');
+        return $this->notificationService->notify('Cliente creado exitosamente', '/clientes/show');
     }
 
     /**
@@ -90,7 +96,8 @@ class ClienteController extends Controller
         
         $cliente->save();
 
-        return redirect('/clientes/show');
+        //return redirect('/clientes/show');
+        return $this->notificationService->notify("Cliente: ".$cliente->nombre." modificado exitosamente", '/clientes/show');
     }
 
     /**

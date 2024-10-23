@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
+use App\Services\NotificationService;
 use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
 {
-    public function __construct(){
+    protected $notificationService;
+
+    public function __construct(NotificationService $notificationService){
         $this->middleware("auth");
+        $this->notificationService = $notificationService;
     }
     /**
      * Display a listing of the resource.
@@ -20,7 +24,7 @@ class CategoriaController extends Controller
             "categorias.nombre",
         )->get();
         
-        return view("/categorias/show")->with(["categorias" => $categorias]);
+        return view("categorias.show")->with(["categorias" => $categorias]);
     }
 
     /**
@@ -43,7 +47,8 @@ class CategoriaController extends Controller
 
         Categoria::create($data);
 
-        return redirect('/categorias/show');
+        //return redirect('/categorias/show');
+        return $this->notificationService->notify('Categoria creada exitosamente', '/categorias/show');
     }
 
     /**
@@ -79,7 +84,8 @@ class CategoriaController extends Controller
         
         $categoria->save();
 
-        return redirect('/categorias/show');
+        //return redirect('/categorias/show');
+        return $this->notificationService->notify("categoria: ".$categoria->nombre." modificada exitosamente", '/categorias/show');
     }
 
     /**

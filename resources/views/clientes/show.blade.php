@@ -7,6 +7,27 @@
     <h5>Listado de Clientes</h5>
     <hr>
 
+    <div class="d-flex justify-content-end mb-3">
+        <a href="/reporteClientes" class="btn btn-primary" target="_blank">Generar reporte</a>
+        <a href="/reports/seleccionarCategoria" class="btn btn-primary">Generar reporte por categoria</a>
+    </div>
+    <div class="d-flex m-3">
+        <form action="/reporteClienteEspesifico" method="POST">
+            @csrf
+
+            <label for="id">ID del Cliente</label>
+            <input type="number" name="id" id="id" class="form-control" required>
+
+            @error('id')
+                <span class="invalid-feedback d-block" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+
+            <button type="submit" class="btn btn-primary mt-3">Generar Reporte</button>
+        </form>
+    </div>
+
     <table class="table">
         <thead>
             <tr>

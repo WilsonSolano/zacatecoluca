@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Branch;
 use App\Models\Product;
+use App\Services\NotificationService;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function __construct(){
+    protected $notificationService;
+
+    public function __construct(NotificationService $notificationService){
         $this->middleware("auth");
+        $this->notificationService = $notificationService;
     }
     /**
      * Display a listing of the resource.
@@ -42,14 +46,16 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $data = request()->validate([
-            'nombre'=> 'required',
-            'precio'=> 'required',
-            'marca'=> 'required'
+            'nombre' => 'required',
+            'precio' => 'required',
+            'marca' => 'required',
+            'fechaCreacion' => now()
         ]);
 
         Product::create($data);
 
-        return redirect('/products/show');
+        //return redirect('/products/show');
+        return $this->notificationService->notify("Producto: ".$data['nombre']." Creado exitosamente", '/products/show');
     }
 
     /**
@@ -89,7 +95,8 @@ class ProductController extends Controller
         
         $product->save();
 
-        return redirect('/products/show');
+        //return redirect('/products/show');
+        return $this->notificationService->notify("Producto: ".$product->nombre." Modificado exitosamente", '/products/show');
     }
 
     /**

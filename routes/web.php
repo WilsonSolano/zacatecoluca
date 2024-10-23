@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ClienteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportController;
 use App\Models\Categoria;
 
 Route::get('/home', function () {
@@ -80,3 +81,14 @@ Route::delete('/categorias/destroy/{id}', [CategoriaController::class, 'destroy'
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//PDF
+Route::get('/reporte', [ReportController::class,'reporteUno']);
+Route::get('/reporteClientes', [ReportController::class,'reporteClientes']);
+Route::get('/reporteCategorias', [ReportController::class,'reporteCategorias']);
+Route::post('/reporteClientesPorCategoria', [ReportController::class,'reportePorCategoria']);
+Route::post('/reporteClienteEspesifico', [ReportController::class,'reporteParaClienteEspesifico']);
+
+Route::get('/reports/seleccionarCategoria', function () {
+    $categorias = Categoria::all();  // Obtener todas las categorías
+    return view('reports.seleccionarCategoria', compact('categorias'));
+});

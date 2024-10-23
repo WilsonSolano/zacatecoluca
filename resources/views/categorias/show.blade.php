@@ -3,9 +3,12 @@
 @section('title', 'Inicio')
 
 @section('content')
-    <h1>Clientes</h1>
-    <h5>Listado de Clientes</h5>
+    <h1>Categorias</h1>
+    <h5>Listado de Categorias</h5>
     <hr>
+    <div class="d-flex justify-content-center mb-3">
+        <a href="/reporteCategorias" class="btn btn-primary" target="_blank">Generar reporte</a>
+    </div>
 
     <table class="table">
         <thead>

@@ -6,6 +6,9 @@
     <h1>Productos</h1>
     <h5>Listado de productos</h5>
     <hr>
+    <div class="d-flex  mb-3">
+        <a href="/reporte" class="btn btn-primary" target="_blank">Generar reporte</a>
+    </div>
 
     <table class="table">
         <thead>
